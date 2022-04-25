@@ -14,6 +14,8 @@ object Recursion extends App{
     }
   }
   println(factorial(10))
+
+  println("-----------------------------------")
   // in order to run a recursive function the JVM on top of which Scala runs, uses a call stack to keep partial returns
   // so it can get back to computing the desired result
   // each call of recursive function uses a stack frame
@@ -23,7 +25,7 @@ object Recursion extends App{
 
   //-----------------------------------
 
-  // defining another factorial
+  // defining another factorial - TAIL RECURSIVE
 
   def anotherFactorial(n: Int): BigInt = {
     // essentially the essence of the factorial
@@ -36,6 +38,8 @@ object Recursion extends App{
   }
 
   println(anotherFactorial(5000)) // This overflows the integer representation
+
+  println("-----------------------------------")
   /* how it works
     * anotherFactorial(10) = factHelper(10 ,1)
     * = factHelper(9, 10 * 1) - factHelper of 9 and 10, is 9 less than or equal to 1 = no so it repeats the else branch again
@@ -61,4 +65,49 @@ object Recursion extends App{
   // how do you iterate when recursion is limited - instead if loops use TAIL RECURSION
 
 
+  /* Exercises
+    * 1. concatenate a String n times using tail recursion
+    * 2. isPrime function that's tail recursive
+    * 3. fibonacci function that's tail recursive
+    * trick is to use accumulators to store intermediate results instead of calling the function recursively
+    * need as many accumulators as you have recursive calls on your code path
+   */
+
+  // 1.
+  @tailrec
+  def aConcatenateTailRec(aString: String, n: Int, accumulator: String): String = //accumulator needs to have same return type as intended return type for the function
+    if (n <= 0) accumulator
+    // instead of returning base case i.e. empty string, will return accumulator
+    else aConcatenateTailRec(aString, n-1, aString + accumulator)
+
+    println(aConcatenateTailRec("hello", 3, " "))
+
+  println("-----------------------------------")
+
+  // 2.
+
+  def isPrime(n: Int): Boolean = {
+    @tailrec
+    def isPrimeTailRec (t: Int, isStillPrime: Boolean): Boolean =
+      if(!isStillPrime) false
+      else if (t <= 1) true
+    else isPrimeTailRec(t - 1, n % t != 0 && isStillPrime)
+
+    isPrimeTailRec(n/2, true)
+  }
+    println(isPrime(2003))
+    println(isPrime(629))
+
+  println("-----------------------------------")
+  // 3.
+
+  def fibonacci (n: Int): Int = {
+    def fibonacciTailRec(i: Int, last: Int, nextToLast: Int): Int =  // need to accumulators fibonacci n-1 and fibonacci n-2
+      if (i >= n) last
+      else fibonacciTailRec(i + 1, last + nextToLast, last)
+
+    if(n <= 2) 1
+    else fibonacciTailRec(2, 1, 1)
+  }
+  println(fibonacci(8))
 }
