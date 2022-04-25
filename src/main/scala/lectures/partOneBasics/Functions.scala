@@ -98,7 +98,7 @@ object Functions extends App {
       // otherwise call isPrime recursively bec is prime until t is essentially prime until t minus one and n shouldn't divide by t
         // so t does not divide n and the recursive call isPrimeUntil with t minus one
       else n % t != 0 && isPrimeUntil(t - 1)
-// big function isPrime will call isPrimeUntil, with n divided by 2 
+// big function isPrime will call isPrimeUntil, with n divided by 2
     isPrimeUntil(n / 2)
 
     // isPrimeUntil is an auxiliary function that goes through all possible integer numbers - starting from n divided by 2 until 1
