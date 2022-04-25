@@ -90,9 +90,23 @@ object Functions extends App {
 
   // this needs an auxiliary function
   def isPrime(n: Int): Boolean = {
+    // auxiliary function that tests if n is prime up to a limit
+    // so is n a prime until t i.e. does n have any divisors until the number t
+    // if t is less than or equal to one then return true - bec n is prime until number one
+    def isPrimeUntil(t: Int): Boolean =
+      if (t <= 1) true
+      // otherwise call isPrime recursively bec is prime until t is essentially prime until t minus one and n shouldn't divide by t
+        // so t does not divide n and the recursive call isPrimeUntil with t minus one
+      else n % t != 0 && isPrimeUntil(t - 1)
+// big function isPrime will call isPrimeUntil, with n divided by 2 
+    isPrimeUntil(n / 2)
 
+    // isPrimeUntil is an auxiliary function that goes through all possible integer numbers - starting from n divided by 2 until 1
+    // if any of those divides n - then it will return false (isPrimeUntil t will return false) - means n will not be a prime
+  }
+    println(isPrime(37))
+    println(isPrime(37*17))
   }
 
 
-}
 
