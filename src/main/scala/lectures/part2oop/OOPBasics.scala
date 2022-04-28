@@ -134,7 +134,7 @@ println("--------------------------------------------------")
 
       def currentCount = count
 
-      def incrementCounter = new Counter(count+1)
+      def incrementCounter = new Counter(count+1) //immutability - instances are fixed
 
       def decrementCounter = new Counter(count-1)
 
