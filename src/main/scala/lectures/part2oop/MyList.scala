@@ -72,3 +72,31 @@ object ListTest extends App {
   println(list == clonedList) // this returns true bec of the keyword 'case'
   // - if this wasn't used, would need to define a recursive equals method that would harder bec would need to compare all elements recursively
 }
+
+
+/*
+  * 1. Generic trait called MyPredicate[-T] will have a method called test[T]=> Boolean
+        define MyPredicate with minus sign for T
+        define it contravariant in the type T
+        without this code wont compile
+   * 2. Generic trait MyTransformer[-A,B] - takes two parameters and have a small method to convert a value of Type A into a value of type B
+      every subclass of my transformer will have a diff implementation of that method
+        define MyTransformer with minus sign for A
+        define it contravariant in the type A
+        without this code wont compile 
+
+      * with a method called transform(A) => B
+  * 3. implement the following functions on MyList:
+      - function called 'map' that takes some of 'MyTransformer'  => MyList and returns a new MyList
+      - filter(predicate) => myList
+      - flatMap (transformer from A to MyList of [B] => MyList[B]
+
+
+      * e.g. a class that extends MyPredicate[T]
+      * class EvenPredicate extends MyPredicate[Int]
+
+      * if MyPredicate is implemented properly in MyTransformer then map, filter, flatmap would work as follows
+      * e.g. [1,2,3].map(n * 2) = [2,4,6]
+      * e.g. [1,2,3,4].filter(n%2) = [2,4]
+      * e.g. [1,2,3].flatMap(n => [n, n+1] => [1,2,2,3,3,4]
+ */
