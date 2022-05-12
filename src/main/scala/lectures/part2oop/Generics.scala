@@ -71,11 +71,12 @@ object Generics extends App{
 
   // bounded types
   // allow you to use your generic classes only for certain types that are either subclasses of different type or a super class of different type
-  class Cage[A<: Animal](animal: A)  // upper bounded type   - lower bounded type is with > instead and means Cage only accepts something which is super type of animal 
+  class Cage[A <: Animal](animal: A)  // upper bounded type   - lower bounded type is with > instead and means Cage only accepts something which is super type of animal
   // this means that class Cage only accepts type parameters A that are subtypes of Animal
   // received a parameter of  Animal that is of type A
   val cage = new Cage(new Dog) // this is an acceptable type for cage
 
-  class Car
-  val newCage = new Cage(new Car) // can't write newCage equals new cage of a new car - bec car doesn't subclass animal - new car doesn't conform to the expected type
+//  class Car
+//  val newCage = new Cage(new Car)
+  // can't write newCage equals new cage of a new car - bec car doesn't subclass animal - new car doesn't conform to the expected type
 }
