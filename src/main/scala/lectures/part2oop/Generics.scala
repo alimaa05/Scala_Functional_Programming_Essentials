@@ -17,7 +17,7 @@ object Generics extends App{
 
   // traits can also be type parameterised
 
-  // Generic methods
+  // GENERIC METHODS
   // objects can't be type parameterised
   object MyList {
     def empty[A]: MyList[A] = ???

@@ -5,29 +5,39 @@ abstract class MyList {
 // abstract class that describes a list of integers
 
   // list will be singly linked list that holds integers and will have the following methods:
-  // method 'head' will return an int - first element of this list
-  // method 'tail' - remainder of the list
-  // method 'isEmpty' - returns boolean and 'is this list empty'
-  // method 'add'(Int) => receives integer, returns new list with this element added
-  // override a special method called 'toString' => returns string representation of the list
+  // 1. method 'head' will return an int - first element of this list
+  // 2. method 'tail' - remainder of the list
+  // 3. method 'isEmpty' - returns boolean and 'is this list empty'
+  // 4. method 'add'(Int) => receives integer, returns new list with this element added
+  // 5. override a special method called 'toString' => returns string representation of the list
 
+  // 6.
   // add these methods into subclasses or subtypes of the 'MyList' abstract class
   // first decide on method signature of each method
   // then implement them into their subtypes
 
+  // ----------------------------------------------
+  // 1, 2, 3, 4
   def head: Int
   def tail: MyList
   def isEmpty : Boolean
   def add(plus: Int): MyList
 
+  // 5
   // define protected element - that prints the elements in order with space between them
    def printElement: String
-
   // polymorphic call
   override def toString: String = "[" + printElement + "]"
 
-}
 
+  // 3 - implement the following functions on MyList
+  // deciding on the function signatures
+//  def map[B](transformer: MyTransformer[A, B]) : MyList[B]
+//  def flatMap[B](transformer: MyTransformer[A, MyList[B]]) : MyList[B]
+//  def filter (predicate: MyPredicate[A]) : MyList[A]
+
+}
+// 6
 // Extending the MyList abstract class by two subclasses
 // an empty list and non-empty list
 
@@ -43,6 +53,11 @@ case object EmptyList extends MyList {
   // add element with turn it into a non-empty list
 
    def printElement: String = ""
+
+  // implementing the functions
+//  def map[B](transformer: MyTransformer[Nothing, B]) : MyList[B] = Empty
+//  def flatMap[B](transformer: MyTransformer[Nothing, MyList[B]]) : MyList[B] = Empty
+//  def filter (predicate: MyPredicate[Nothing]) : MyList[Nothing] = Empty
 }
 
 // non-empty list
@@ -52,13 +67,28 @@ case class notEmpty (h : Int, t: MyList) extends MyList {
   def tail: MyList = t
   def isEmpty : Boolean = false
   def add(element: Int): MyList = new notEmpty(element, this)
-  def printElement: String =
+  def printElement: String = {
   if (t.isEmpty) "" + h
   else h + " " + t.printElement
+
+//  def filter (predicate: MyPredicate[A]) : MyList[A] =
+  }
 }
 // by using the keyword 'case' - made MyList more powerful - implemented equals and hashCode out of the box, so can use the list in collections too
 // made MyList serialisable which makes it v powerful to use in distributed networks
 
+// ----------------------------------------------
+// 1
+  trait MyPredicate[-T] {
+    def test(element: T) : Boolean
+  }
+
+// 2
+//  trait MyTransformer[-A,B] {
+//    def transform[element: A] : B
+//  }
+
+// ----------------------------------------------
 object ListTest extends App {
   val list = new notEmpty(1, new notEmpty(2,new notEmpty(3, EmptyList)))
   val clonedList = new notEmpty(1, new notEmpty(2,new notEmpty(3, EmptyList)))
@@ -73,7 +103,7 @@ object ListTest extends App {
   // - if this wasn't used, would need to define a recursive equals method that would harder bec would need to compare all elements recursively
 }
 
-
+// ----------------------------------------------
 /*
   * 1. Generic trait called MyPredicate[-T] will have a method called test[T]=> Boolean
         define MyPredicate with minus sign for T
@@ -83,7 +113,7 @@ object ListTest extends App {
       every subclass of my transformer will have a diff implementation of that method
         define MyTransformer with minus sign for A
         define it contravariant in the type A
-        without this code wont compile 
+        without this code wont compile
 
       * with a method called transform(A) => B
   * 3. implement the following functions on MyList:
