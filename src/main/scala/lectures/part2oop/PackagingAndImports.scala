@@ -40,6 +40,6 @@ object PackagingAndImports extends App {
     val sqlDate = new SqlDate(2010,5,3)
 
   // DEFAULT IMPORTS
-  // packages that are automatically imported without intentional import from your side 
+  // packages that are automatically imported without intentional import from your side
 
 }
